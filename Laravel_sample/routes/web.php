@@ -15,3 +15,6 @@
 Route::get('/','TasksController@index');
 
 Route::resource('tasks','TasksController');
+
+// APIのURL以外のリクエストに対してはindexテンプレートを返す
+// 画面遷移はフロントエンドのVueRouterが制御する
