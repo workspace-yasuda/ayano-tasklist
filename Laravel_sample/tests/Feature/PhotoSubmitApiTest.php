@@ -22,7 +22,7 @@ class PhotoSubmitApiTest extends TestCase
        $this->user = factory(User::class)->create();
    }
 
-    public function 写真をアップロードできること()
+    public function test_写真をアップロードできること()
     {
         $this->assertTrue(true);
 
@@ -33,7 +33,7 @@ class PhotoSubmitApiTest extends TestCase
         $response = $this->actingAs($this->user)
         ->json('POST',route('photo.create'),
         ['photo'=>UploadedFile::fake()->image('photo.png')]);
-
+//        var_dump($response->exception->getMessage());
         //アップロードできたか確認
         $response->assertStatus(201);
 
@@ -41,10 +41,12 @@ class PhotoSubmitApiTest extends TestCase
         $photo = Photo::first();
 
         //レコードのファイル名が正しいか確認
-        $this->assertRegExp('/^[0-9a-zA-Z-_]{12}$/', $photo->id);
+        $this->assertRegExp('/^[(0-9)|(a-z)|(A-Z)|(-_)]{12}(\.gif$|\.png$|\.jpg$|\.jpeg$|\.bmp)$/i', $photo->filename);
 
         //ストレージに画像が入っているか確認
-        $cloud = Strage::cloud();
-        $cloud->asseartExists($photo->filename);
+        $cloud = Storage::fake();
+
+
+        $cloud->assertExists($photo->filename);
     }
 }

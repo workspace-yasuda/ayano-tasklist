@@ -18,6 +18,8 @@ class CreatePhotosTable extends Migration
             $table->integer('user_id');
             $table->string('filename');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
