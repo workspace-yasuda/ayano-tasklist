@@ -13,7 +13,7 @@ use Tests\TestCase;
 
 class PhotoSubmitApiTest extends TestCase
 {
-
+    use RefreshDatabase;
      public function setUp(): void
    {
        parent::setUp();
@@ -33,7 +33,6 @@ class PhotoSubmitApiTest extends TestCase
         $response = $this->actingAs($this->user)
         ->json('POST',route('photo.create'),
         ['photo'=>UploadedFile::fake()->image('photo.png')]);
-//        var_dump($response->exception->getMessage());
         //アップロードできたか確認
         $response->assertStatus(201);
 
@@ -44,8 +43,7 @@ class PhotoSubmitApiTest extends TestCase
         $this->assertRegExp('/^[(0-9)|(a-z)|(A-Z)|(-_)]{12}(\.gif$|\.png$|\.jpg$|\.jpeg$|\.bmp)$/i', $photo->filename);
 
         //ストレージに画像が入っているか確認
-        $cloud = Storage::fake();
-
+        $cloud = Storage::cloud();
 
         $cloud->assertExists($photo->filename);
     }

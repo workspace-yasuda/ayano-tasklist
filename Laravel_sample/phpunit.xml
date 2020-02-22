@@ -27,5 +27,11 @@
         <env name="CACHE_DRIVER" value="array"/>
         <env name="SESSION_DRIVER" value="array"/>
         <env name="QUEUE_DRIVER" value="sync"/>
+        <env name="DB_CONNECTION" value="test"/>
     </php>
+    <php>
+        <ini name="xdebug.show_exception_trace" value="1"/>
+    </php>
+
+
 </phpunit>

@@ -19,15 +19,8 @@ class PhotoController extends Controller
 
   public function create(StorePhoto $request)
   {
-    //投稿写真の拡張子を取得する
-
+    // 写真インスタンスを生成（
     $photo =new Photo();
-
-
-
-
-
-
     //S3にファイルを保存
     //第3引数の'public'はファイルを公開状態で保存するため
     Storage::cloud()
