@@ -1,4 +1,4 @@
-let mix = require('laravel-mix');
+const mix = require('laravel-mix');
 
 /*
  |--------------------------------------------------------------------------
@@ -13,3 +13,12 @@ let mix = require('laravel-mix');
 
 mix.js('resources/assets/js/_app.js', 'public/js')
    .sass('resources/assets/sass/_app.scss', 'public/css');
+
+
+mix.browserSync('vuesplash.test')
+    .js('resources/assets/js/_app.js', 'public/js')
+    .version();
+mix.browserSync({
+    proxy: 'localhost:'+ process.env.WEB_PORT, // アプリの起動アドレス
+    open: false // ブラウザを自動で開かない
+});

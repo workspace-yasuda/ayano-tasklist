@@ -12,6 +12,9 @@
 */
 
 
-Route::get('/','TasksController@index');
-
+//Route::get('/','TasksController@index');
+//
 Route::resource('tasks','TasksController');
+
+Route::get('/{any?}', 'TasksController@index'#fn() => view('index')
+)->where('any', '.+');
